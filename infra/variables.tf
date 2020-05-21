@@ -2,12 +2,12 @@
 variable "client_id" {default = ""}
 variable "client_secret" {default = ""}
 variable "subscription_id" {default = ""}
-variable "tenant_id" {default = ""}
+variable "tenant_id" {default = "}
 #BIG-IP variables
-variable "prefix" {default = "molearytue"}
+variable "prefix" {default = ""}
 variable "uname" {default = "azureuser"}
-variable "upassword" {default = "Default12345!"}
-variable "location" {default = "East US 2"}
+variable "upassword" {default = "***yourpaswordhere***"}
+variable "location" {default = "Central US"}
 #Network variables
 variable "network_cidr" {default = "10.0.0.0/16"}
 variable "mgmt_subnet_prefix" {default = "10.0.1.0/24"}
