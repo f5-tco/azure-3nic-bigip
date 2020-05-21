@@ -14,24 +14,24 @@ module "vnet" {
   client_secret   = "${var.client_secret}"
 }
 
-module "aks" {
-  source = "./aks"
-  #variables for resource creation
-  int_subnet_id = "${module.vnet.internal_subnet_id}"
-  location = "${module.vnet.rg_location}"
-  prefix = "${var.prefix}"
-  rg_name = "${module.vnet.rg_name}"
-  service_cidr = "172.16.0.0/16"
-  dns_service_ip = "172.16.0.10"
-  docker_bridge_cidr = "172.17.0.1/16"
+# module "aks" {
+  # source = "./aks"
+  # variables for resource creation
+  # int_subnet_id = "${module.vnet.internal_subnet_id}"
+  # location = "${module.vnet.rg_location}"
+  # prefix = "${var.prefix}"
+  # rg_name = "${module.vnet.rg_name}"
+  # service_cidr = "172.16.0.0/16"
+  # dns_service_ip = "172.16.0.10"
+  # docker_bridge_cidr = "172.17.0.1/16"
   # Configure the Azure Provider
-  subscription_id = "${var.subscription_id}"
-  tenant_id	    = "${var.tenant_id}"
-  client_id	    = "${var.client_id}"
-  client_secret   = "${var.client_secret}"
-  admin_username = "${var.uname}"
-  admin_password = "${var.upassword}"
-}
+  # subscription_id = "${var.subscription_id}"
+  # tenant_id	    = "${var.tenant_id}"
+  # client_id	    = "${var.client_id}"
+  # client_secret   = "${var.client_secret}"
+  # admin_username = "${var.uname}"
+  # admin_password = "${var.upassword}"
+
 
 module "bigip" {
   source = "./bigip"
@@ -47,13 +47,9 @@ module "bigip" {
   ext_gw     = "${cidrhost(module.vnet.external_subnet_prefix, 1)}"
   int_gw     = "${cidrhost(module.vnet.internal_subnet_prefix, 1)}"
   f5vm01mgmt = "${cidrhost(module.vnet.mgmt_subnet_prefix, 4)}"
-  f5vm02mgmt = "${cidrhost(module.vnet.mgmt_subnet_prefix, 5)}"
   f5vm01ext  = "${cidrhost(module.vnet.external_subnet_prefix, 10)}"
   f5vm01ext_sec = "${cidrhost(module.vnet.external_subnet_prefix, 100)}"
-  f5vm02ext  = "${cidrhost(module.vnet.external_subnet_prefix, 11)}"
-  f5vm02ext_sec = "${cidrhost(module.vnet.external_subnet_prefix, 101)}"
   f5vm01int  = "${cidrhost(module.vnet.internal_subnet_prefix, 10)}"
-  f5vm02int  = "${cidrhost(module.vnet.internal_subnet_prefix, 11)}"
   #variables for onboard.tpl
   uname = "${var.uname}"
   upassword = "${var.upassword}"
@@ -72,11 +68,9 @@ data "template_file" "tfvars" {
   vars = {
     #variables for CIS configuration
     f5vm01int = "${cidrhost(module.vnet.internal_subnet_prefix, 10)}"
-    f5vm02int = "${cidrhost(module.vnet.internal_subnet_prefix, 11)}"
     upassword = "${var.upassword}"
     #variables for k8s app
     f5vm01ext_sec = "${cidrhost(module.vnet.external_subnet_prefix, 100)}"
-    f5vm02ext_sec = "${cidrhost(module.vnet.external_subnet_prefix, 101)}"
     #other variables
     prefix = "${var.prefix}"
     rg_name = "${module.vnet.rg_name}"

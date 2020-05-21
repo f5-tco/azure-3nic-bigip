@@ -11,13 +11,10 @@ variable "int_gw" {default = ""}
 #Some BIG-IP variables
 variable "prefix" {default = ""}
 variable "f5vm01mgmt" {default = ""}
-variable "f5vm02mgmt" {default = ""}
 variable "f5vm01ext" {default = ""}
 variable "f5vm01ext_sec" {default = ""}
-variable "f5vm02ext" {default = ""}
-variable "f5vm02ext_sec" {default = ""}
 variable "f5vm01int" {default = ""}
-variable "f5vm02int" {default = ""}
+
 
 #Variables for onboard.tpl
 variable "uname" {default = ""}
@@ -31,7 +28,6 @@ variable "onboard_log" {default = "/var/log/startup-script.log"}
 variable license1	      { default = ""}
 variable license2	      { default = ""}
 variable host1_name           { default = "f5vm01"}
-variable host2_name           { default = "f5vm02"}
 variable dns_server           { default = "8.8.8.8" }
 variable ntp_server           { default = "0.us.pool.ntp.org" }
 variable timezone             { default = "UTC" }
@@ -64,4 +60,3 @@ variable rest_do_uri { default  = "/mgmt/shared/declarative-onboarding" }
 variable rest_do_method { default = "POST" }
 variable rest_as3_method { default = "POST" }
 variable rest_vm01_do_file {default = "vm01_do_data.json" }
-variable rest_vm02_do_file {default = "vm02_do_data.json" }
